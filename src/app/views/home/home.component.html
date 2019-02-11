@@ -1,0 +1,49 @@
+<h2>SQL Genérico</h2>
+
+<form [formGroup]="formScript" (submit)="gerarScriptGenerico()">
+
+    <mat-grid-list cols="1" [rowHeight]="'4rem'">
+        <mat-grid-tile>
+            <mat-form-field>
+                <input matInput placeholder="Schema"
+                       formControlName="schema"
+                       autocomplete="off"
+                       [errorStateMatcher]="matcher">
+                <mat-error *ngIf="formScript.get('schema').hasError('required')">
+                    Esta campo é obrigatório!
+                </mat-error>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-form-field>
+                <input matInput placeholder="Nome tabela estado"
+                       formControlName="nomeTabEstado"
+                       autocomplete="off"
+                       [errorStateMatcher]="matcher">
+                <mat-error *ngIf="formScript.get('nomeTabEstado').hasError('required')">
+                    Esta campo é obrigatório!
+                </mat-error>
+            </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-form-field>
+                <input matInput placeholder="Nome tabela munício"
+                       formControlName="nomeTabMunicipio"
+                       autocomplete="off"
+                       [errorStateMatcher]="matcher">
+                <mat-error *ngIf="formScript.get('nomeTabMunicipio').hasError('required')">
+                    Esta campo é obrigatório!
+                </mat-error>
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <button mat-stroked-button
+            color="primary"
+            type="submit"
+            (click)="gerarScriptGenerico()">Gerar Script</button>
+</form>
+
+<h2>SQL Customizado</h2>
