@@ -1,0 +1,41 @@
+.card-container {
+
+    display: flex;
+
+    justify-content: space-around;
+
+    flex-wrap: wrap;
+
+    width: 100%;
+}
+
+.card-width {
+
+    width: 45%;
+    animation: scale-in-top .4s;
+}
+
+.card-body-container {
+
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.code-font {
+
+    font-size: 16px;
+}
+
+@keyframes scale-in-top {
+
+    from {
+
+        transform: scaleY(0);
+    }
+    to {
+
+        transform: scaleY(1);
+    }
+}

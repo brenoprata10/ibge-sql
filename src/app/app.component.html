@@ -1,1 +1,66 @@
+<app-github-ribbon></app-github-ribbon>
+
+<div class="container-title">
+    <div class="mid-space">
+        <app-svg-brasil [corPrincipal]="'white'"
+                        [height]="600"
+                        [width]="600"></app-svg-brasil>
+    </div>
+    <div class="mid-space grid-title">
+        <h1 class="title-ibge">IBGE SQL</h1>
+        <h3 class="subtitle-ibge">Scripts SQL gerados diretamente da API do IBGE!</h3>
+        <div>
+            <button mat-raised-button
+                    class="btn-comecar-style"
+                    color="basic"
+                    (click)="moverScrollParaElemento()"
+                    type="button">
+                <i class="material-icons">
+                    public
+                </i>
+                Começar!
+            </button>
+        </div>
+        <br/>
+        <div>
+            <button mat-stroked-button
+                    class="btn-comecar-style"
+                    color="basic"
+                    type="button"
+                    (click)="redirecionarPara('https://brenoprata10.github.io/Curriculo/#!/')">
+                <i class="material-icons">
+                    favorite_border
+                </i>
+                Desenvolvido por Breno Prata
+            </button>
+        </div>
+    </div>
+</div>
+
 <router-outlet></router-outlet>
+
+<div>
+
+    <h3 class="subtitle-ibge" style="color: white"></h3>
+    <button mat-stroked-button
+            class="btn-footer btn-github"
+            color="basic"
+            type="button"
+            (click)="redirecionarPara('https://github.com/brenoprata10/ibge-sql')">
+        <img src="../assets/images/GitHub-Mark.png" style="height: 22px; filter: brightness(100)">
+        Github
+    </button>
+    <button mat-stroked-button
+            class="btn-footer btn-pagseguro"
+            color="basic"
+            (click)="redirecionarPara('https://pag.ae/7UBETN22L')">
+        <img src="../assets/images/logo-ps-white.svg" style="height: 22px;">
+    </button>
+    <button mat-stroked-button
+            class="btn-footer btn-patreon"
+            color="basic"
+            (click)="redirecionarPara('https://www.patreon.com/brenoprata')">
+        <img src="../assets/images/Patreon_Mark_Primary.png" style="height: 22px;">
+        Become a Patreon
+    </button>
+</div>

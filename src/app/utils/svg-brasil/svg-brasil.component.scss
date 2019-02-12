@@ -2,6 +2,7 @@ path {
 
     &:hover {
 
-        fill: aqua;
+        transition: .2s;
+        fill: gray;
     }
 }

@@ -9,10 +9,13 @@ import {SnackbarService} from "../../services/snackbar.service";
 
     selector: 'app-home',
 
-    templateUrl: './home.component.html'
+    templateUrl: './home.component.html',
+
+    styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
+    scriptExemplo: string;
     formScript: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
@@ -24,12 +27,13 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
 
         this.construirForm();
+        this.atualizarScriptExemplo();
     }
 
     private construirForm() {
 
         this.formScript = this.formBuilder.group({
-            schema: new FormControl('ibge_schema', Validators.required),
+            schema: new FormControl('ibge_schema'),
             nomeTabEstado: new FormControl('tab_estado', Validators.required),
             nomeTabMunicipio: new FormControl('tab_municipio', Validators.required)
         });
@@ -46,18 +50,35 @@ export class HomeComponent implements OnInit {
         this.estadoService.buscarTodos()
             .subscribe((listaEstado: Estado[]) => {
 
-                console.log(this.estadoService.gerarScriptCreateTable(this.valorFormSchema, this.valorFormNomeTabEstado));
-                console.log(this.estadoService.gerarScriptInsertTable(listaEstado, this.valorFormSchema, this.valorFormNomeTabEstado));
+                let scriptGerado = '';
+
+                scriptGerado = this.estadoService.gerarScriptCreateTable(this.valorFormSchema, this.valorFormNomeTabEstado);
+                scriptGerado = scriptGerado.concat(this.estadoService.gerarScriptInsertTable(listaEstado, this.valorFormSchema, this.valorFormNomeTabEstado));
 
                 this.municipioService.buscarTodos()
                     .subscribe((listaMunicipio => {
 
-                        console.log(this.municipioService.gerarScriptCreateTable(this.valorFormSchema, this.valorFormNomeTabMunicipio, this.valorFormNomeTabEstado));
-                        console.log(this.municipioService.gerarScriptInsertTable(listaMunicipio, this.valorFormSchema, this.valorFormNomeTabMunicipio));
+                        scriptGerado = scriptGerado.concat(this.municipioService.gerarScriptCreateTable(this.valorFormSchema, this.valorFormNomeTabMunicipio, this.valorFormNomeTabEstado));
+                        scriptGerado = scriptGerado.concat(this.municipioService.gerarScriptInsertTable(listaMunicipio, this.valorFormSchema, this.valorFormNomeTabMunicipio));
+
+                        this.downloadArquivo(scriptGerado);
                     }));
             }, error => {
 
             });
+    }
+
+    downloadArquivo(script) {
+
+        const link: any = document.createElement("a");
+        link.download = 'teste.sql';
+        link.href = `data:text/plain;charset=utf-8,${encodeURIComponent(script)}`;
+        link.click();
+    }
+
+    atualizarScriptExemplo() {
+
+        this.scriptExemplo = this.estadoService.gerarScriptCreateTable(this.valorFormSchema, this.valorFormNomeTabEstado)
     }
 
     get valorFormSchema(): string {

@@ -1,26 +1,24 @@
-import {Component, OnInit} from '@angular/core';
-import {EstadoService} from "./services/estado.service";
-import {Estado} from "./model/estado";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  title = 'ibge-sql';
+export class AppComponent {
 
-  listaEstados: Estado[];
+  redirecionarPara(link: string) {
 
-  constructor(private estadoService: EstadoService) {
-
+      window.open(link);
   }
 
-  ngOnInit() {
+  moverScrollParaElemento() {
 
-      this.estadoService.buscarTodos()
-          .subscribe(res => {
-            this.listaEstados = res;
-          })
+      setTimeout(() => {
+          window.scroll({
+              top: window.scrollY + document.getElementById('cards-sql').getBoundingClientRect().top - 75,
+              behavior: 'smooth'
+          });
+      }, 100);
   }
 }

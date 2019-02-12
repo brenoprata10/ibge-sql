@@ -19,20 +19,20 @@ export class MunicipioService {
 
     gerarScriptCreateTable(nomeSchema:string, nomeTabela: string, nomeTabelaEstado: string): string {
 
-        return `CREATE TABLE IF NOT EXISTS ${nomeSchema}.${nomeTabela} (
-                id BIGINT PRIMARY KEY,
+        return `\nCREATE TABLE IF NOT EXISTS ${nomeSchema ? nomeSchema.concat('.') : ''}${nomeTabela} (
+                cod_municipio BIGINT PRIMARY KEY,
                 nome VARCHAR(100) NOT NULL,
-                cod_estado BIGINT NOT NULL
+                cod_estado BIGINT NOT NULL,
                   CONSTRAINT fk_${nomeTabela}_${nomeTabelaEstado} 
-                    FOREIGN KEY id REFERENCES (${nomeTabelaEstado})
-            );`
+                    FOREIGN KEY (cod_estado) REFERENCES ${nomeSchema ? nomeSchema.concat('.') : ''}${nomeTabelaEstado}(cod_estado)
+            );\n`
     }
 
     gerarScriptInsertTable(listaMunicipios: Municipio[], nomeSchema: string, nomeTabela: string): string {
 
-        const insertTable = `INSERT INTO ${nomeSchema}.${nomeTabela} VALUES `;
+        const insertTable = `INSERT INTO ${nomeSchema ? nomeSchema.concat('.') : ''}${nomeTabela} VALUES `;
 
-        return listaMunicipios.map(municipio => `${insertTable}(${municipio.id}, ${municipio.nome}, ${municipio.microrregiao.mesorregiao.UF.id});`)
+        return listaMunicipios.map(municipio => `${insertTable}(${municipio.id}, '${municipio.nome.replace("'", "''")}', ${municipio.microrregiao.mesorregiao.UF.id});`)
             .join('\n');
     }
 }

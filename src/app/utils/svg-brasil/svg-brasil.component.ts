@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 
 @Component({
     selector: 'app-svg-brasil',
@@ -9,4 +9,7 @@ import {Component} from "@angular/core";
 })
 export class SvgBrasilComponent {
 
+    @Input('width') width: number;
+    @Input('height') height: number;
+    @Input('corPrincipal') corPrincipal: string;
 }

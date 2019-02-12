@@ -18,18 +18,18 @@ export class EstadoService {
 
     gerarScriptCreateTable(nomeSchema:string, nomeTabela: string): string {
 
-        return `CREATE TABLE IF NOT EXISTS ${nomeSchema}.${nomeTabela} (
-                id BIGINT PRIMARY KEY,
+        return `\nCREATE TABLE IF NOT EXISTS ${nomeSchema ? nomeSchema.concat('.') : ''}${nomeTabela} (
+                cod_estado BIGINT PRIMARY KEY,
                 sigla VARCHAR(2) NOT NULL,
-                nome VARCHAR(100) NOT NULL,
-            );`
+                nome VARCHAR(100) NOT NULL
+            );\n`
     }
 
     gerarScriptInsertTable(listaEstados: Estado[], nomeSchema: string, nomeTabela: string): string {
 
-        const insertTable = `INSERT INTO ${nomeSchema}.${nomeTabela} VALUES `;
+        const insertTable = `INSERT INTO ${nomeSchema ? nomeSchema.concat('.') : ''}${nomeTabela} VALUES `;
 
-        return listaEstados.map(estado => `${insertTable}(${estado.id}, ${estado.sigla}, ${estado.nome});`)
+        return listaEstados.map(estado => `${insertTable}(${estado.id}, '${estado.sigla}', '${estado.nome}');`)
             .join('\n');
     }
 }
