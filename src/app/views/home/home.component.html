@@ -14,7 +14,6 @@
                             <input matInput placeholder="Schema"
                                    formControlName="schema"
                                    autocomplete="off"
-                                   [errorStateMatcher]="matcher"
                                     (keyup)="atualizarScriptExemplo()">
                         </mat-form-field>
                     </mat-grid-tile>
@@ -32,8 +31,7 @@
                             <input matInput placeholder="Nome tabela estado"
                                    formControlName="nomeTabEstado"
                                    autocomplete="off"
-                                   (keyup)="atualizarScriptExemplo()"
-                                   [errorStateMatcher]="matcher">
+                                   (keyup)="atualizarScriptExemplo()">
                             <mat-error *ngIf="formScript.get('nomeTabEstado').hasError('required')">
                                 Esta campo é obrigatório!
                             </mat-error>
@@ -44,8 +42,7 @@
                         <mat-form-field>
                             <input matInput placeholder="Nome tabela munício"
                                    formControlName="nomeTabMunicipio"
-                                   autocomplete="off"
-                                   [errorStateMatcher]="matcher">
+                                   autocomplete="off">
                             <mat-error *ngIf="formScript.get('nomeTabMunicipio').hasError('required')">
                                 Esta campo é obrigatório!
                             </mat-error>
