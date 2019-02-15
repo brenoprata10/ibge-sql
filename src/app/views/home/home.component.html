@@ -1,6 +1,6 @@
 <div class="card-container" id="cards-sql">
 
-    <mat-card class="card-width">
+    <mat-card id="card-generico" class="card-width">
 
         <mat-card-title>SQL Básico</mat-card-title>
         <mat-card-subtitle>Scripts de Estados e Municípios diretos e sem muita customização</mat-card-subtitle>
@@ -52,6 +52,7 @@
                     <mat-grid-tile [colspan]="1" [rowspan]="1">
                         <button mat-stroked-button
                                 color="primary"
+                                [disabled]="isScriptGenericoSendoGerado"
                                 type="submit">
                             <i class="material-icons">
                                 check
@@ -62,6 +63,9 @@
                 </mat-grid-list>
             </form>
         </mat-card-content>
+
+        <mat-progress-spinner *ngIf="isScriptGenericoSendoGerado"
+                class="spinner-card" [mode]="'indeterminate'"></mat-progress-spinner>
     </mat-card>
 
     <mat-card class="card-width">

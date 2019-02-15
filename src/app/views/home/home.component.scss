@@ -28,6 +28,21 @@
     font-size: 16px;
 }
 
+.spinner-card {
+
+    position: absolute;
+    top: 40%;
+    left: 40%;
+
+    animation: scale-in-top .3s;
+}
+
+.card-loading {
+
+    transition: .4s;
+    opacity: 0.4;
+}
+
 @keyframes scale-in-top {
 
     from {

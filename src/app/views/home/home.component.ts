@@ -1,9 +1,10 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit, Renderer2, ViewChild} from "@angular/core";
 import {EstadoService} from "../../services/estado.service";
 import {Estado} from "../../model/estado";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MunicipioService} from "../../services/municipio.service";
 import {SnackbarService} from "../../services/snackbar.service";
+import {MatCard} from "@angular/material";
 
 @Component({
 
@@ -15,10 +16,15 @@ import {SnackbarService} from "../../services/snackbar.service";
 })
 export class HomeComponent implements OnInit {
 
+    @ViewChild('cardGenerico') cardGenerico: MatCard;
+
     scriptExemplo: string;
     formScript: FormGroup;
 
-    constructor(private formBuilder: FormBuilder,
+    isScriptGenericoSendoGerado: boolean;
+
+    constructor(private renderer: Renderer2,
+                private formBuilder: FormBuilder,
                 private estadoService: EstadoService,
                 private snackbarService: SnackbarService,
                 private municipioService: MunicipioService) {
@@ -47,6 +53,9 @@ export class HomeComponent implements OnInit {
             return;
         }
 
+        this.isScriptGenericoSendoGerado = true;
+        this.adicionarOpacidadeCard(document.getElementById('card-generico'));
+
         this.estadoService.buscarTodos()
             .subscribe((listaEstado: Estado[]) => {
 
@@ -62,10 +71,30 @@ export class HomeComponent implements OnInit {
                         scriptGerado = scriptGerado.concat(this.municipioService.gerarScriptInsertTable(listaMunicipio, this.valorFormSchema, this.valorFormNomeTabMunicipio));
 
                         this.downloadArquivo(scriptGerado);
-                    }));
-            }, error => {
 
+                        this.isScriptGenericoSendoGerado = false;
+                        this.esconderLoading(document.getElementById('card-generico'));
+                    }));
+            }, () => {
+
+                this.snackbarService.mostrarSnack('O IBGE não está respondendo!', 'Tentar novamente', () => {
+
+                    this.gerarScriptGenerico();
+                }, 7000);
+
+                this.isScriptGenericoSendoGerado = false;
+                this.esconderLoading(document.getElementById('card-generico'));
             });
+    }
+
+    adicionarOpacidadeCard(element) {
+
+        this.renderer.addClass(element, 'card-loading');
+    }
+
+    esconderLoading(element) {
+
+        this.renderer.removeClass(element, 'card-loading');
     }
 
     downloadArquivo(script) {
