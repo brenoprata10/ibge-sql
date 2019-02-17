@@ -25,7 +25,7 @@ export class MunicipioService {
                 cod_estado BIGINT NOT NULL,
                   CONSTRAINT fk_${nomeTabela}_${nomeTabelaEstado} 
                     FOREIGN KEY (cod_estado) REFERENCES ${nomeSchema ? nomeSchema.concat('.') : ''}${nomeTabelaEstado}(cod_estado)
-            );\n`
+            );\n`;
     }
 
     gerarScriptInsertTable(listaMunicipios: Municipio[], nomeSchema: string, nomeTabela: string): string {

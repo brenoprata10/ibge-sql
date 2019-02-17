@@ -16,10 +16,22 @@ import {MatCard} from "@angular/material";
 })
 export class HomeComponent implements OnInit {
 
+    private MYSQL = {
+        nome: 'Mysql',
+        icon: '../assets/images/logo-mysql-170x115.png'
+    };
+    private POSTGRES = {
+        nome: 'Postgres',
+        icon: '../assets/images/images.png'
+    };
+
+    listaBancosSuportados: any[];
+
     @ViewChild('cardGenerico') cardGenerico: MatCard;
 
     scriptExemplo: string;
     formScript: FormGroup;
+    formScriptCustomizado: FormGroup;
 
     isScriptGenericoSendoGerado: boolean;
 
@@ -32,8 +44,14 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
 
+        this.inicializarVariaveis();
         this.construirForm();
         this.atualizarScriptExemplo();
+    }
+
+    private inicializarVariaveis() {
+
+        this.listaBancosSuportados = [this.MYSQL, this.POSTGRES];
     }
 
     private construirForm() {
@@ -42,6 +60,34 @@ export class HomeComponent implements OnInit {
             schema: new FormControl('ibge_schema'),
             nomeTabEstado: new FormControl('tab_estado', Validators.required),
             nomeTabMunicipio: new FormControl('tab_municipio', Validators.required)
+        });
+
+        this.formScriptCustomizado = this.formBuilder.group({
+            tipoBanco: new FormGroup({
+
+                nome: new FormControl(null, Validators.required)
+            }, Validators.required),
+            dadosScript: new FormGroup({
+
+                estado: new FormControl({
+
+                    nomeTabela: new FormControl('tab_estado', Validators.required),
+                    nomeCampoNome: new FormControl('nome', Validators.required),
+                    nomeCampoSigla: new FormControl('sigla', Validators.required),
+                    nomeCampoId: new FormControl('cod_estado', Validators.required),
+                }, Validators.required),
+
+                municipio: new FormGroup({
+
+                    nomeCampoNome: new FormControl('nome', Validators.required),
+                    nomeTabela: new FormControl('tab_municipio', Validators.required),
+                    nomeCampoId: new FormControl('cod_municipio', Validators.required),
+                    nomeCampoFKEstado: new FormControl('cod_estado', Validators.required),
+                }, Validators.required),
+
+                schema: new FormControl('ibge_schema', Validators.required),
+                isGerarScriptRegiao: new FormControl(false),
+            }, Validators.required),
         });
     }
 
@@ -87,17 +133,17 @@ export class HomeComponent implements OnInit {
             });
     }
 
-    adicionarOpacidadeCard(element) {
+    private adicionarOpacidadeCard(element) {
 
         this.renderer.addClass(element, 'card-loading');
     }
 
-    esconderLoading(element) {
+    private esconderLoading(element) {
 
         this.renderer.removeClass(element, 'card-loading');
     }
 
-    downloadArquivo(script) {
+    private downloadArquivo(script) {
 
         const link: any = document.createElement("a");
         link.download = 'teste.sql';
@@ -123,5 +169,15 @@ export class HomeComponent implements OnInit {
     get valorFormNomeTabMunicipio(): string {
 
         return this.formScript.get('nomeTabMunicipio').value;
+    }
+
+    get formTipoBanco(): FormGroup {
+
+        return this.formScriptCustomizado.get('tipoBanco') as FormGroup;
+    }
+
+    get formDadosScript(): FormGroup {
+
+        return this.formScriptCustomizado.get('dadosScript') as FormGroup;
     }
 }
