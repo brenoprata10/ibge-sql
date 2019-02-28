@@ -1,0 +1,94 @@
+<mat-card class="card-width">
+
+    <mat-card-title>SQL Avançado</mat-card-title>
+    <mat-card-subtitle>Scripts de Regiões, Estados e Municípios com alta customização para cada caso</mat-card-subtitle>
+
+    <mat-card-content class="card-body-container">
+
+        <mat-horizontal-stepper [linear]="true">
+            <mat-step #stepper [stepControl]="formTipoBanco">
+                <form [formGroup]="formTipoBanco">
+                    <ng-template matStepLabel>Escolha o Banco</ng-template>
+                    <mat-button-toggle-group #group="matButtonToggleGroup"
+                                             (click)="formTipoBanco.get('nome').setValue(group.value)">
+                        <mat-button-toggle *ngFor="let bancoSuportado of listaBancosSuportados"
+                                           value="{{bancoSuportado.nome}}">
+                            <img src="{{bancoSuportado.icon}}" style="width: 90px;">
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                    <div>
+                        <button mat-stroked-button
+                                color="primary" matStepperNext>Próximo
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="formDadosScript">
+                <form [formGroup]="formDadosScript">
+                    <ng-template matStepLabel>Dados Script</ng-template>
+                    <mat-accordion class="example-headers-align">
+                        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Personal
+
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    Type your name and age
+                                    <mat-icon>account_circle</mat-icon>
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+
+                            <mat-form-field>
+                                <input matInput placeholder="First name">
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <input matInput type="number" min="1" placeholder="Age">
+                            </mat-form-field>
+
+                            <mat-action-row>
+                                <button mat-button color="primary" (click)="nextStep()">Next</button>
+                            </mat-action-row>
+                        </mat-expansion-panel>
+
+                        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Destination
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    Type the country name
+                                    <mat-icon>map</mat-icon>
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+
+                            <mat-form-field>
+                                <input matInput placeholder="Country">
+                            </mat-form-field>
+
+                            <mat-action-row>
+                                <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                                <button mat-button color="primary" (click)="nextStep()">Next</button>
+                            </mat-action-row>
+                        </mat-expansion-panel>
+
+                    </mat-accordion>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Baixar Script</ng-template>
+                You are now done.
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button (click)="stepper.reset()">Reset</button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </mat-card-content>
+</mat-card>

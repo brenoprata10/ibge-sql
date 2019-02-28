@@ -13,11 +13,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatButtonToggleModule, MatStepperModule} from "@angular/material";
+import {MatButtonToggleModule, MatExpansionModule, MatIconModule, MatStepperModule} from "@angular/material";
 
 @NgModule({
     exports: [
         MatCardModule,
+        MatIconModule,
         MatRadioModule,
         MatInputModule,
         MatDialogModule,
@@ -30,12 +31,14 @@ import {MatButtonToggleModule, MatStepperModule} from "@angular/material";
         MatSnackBarModule,
         MatGridListModule,
         MatCheckboxModule,
+        MatExpansionModule,
         MatFormFieldModule,
         MatButtonToggleModule,
         MatProgressSpinnerModule,
     ],
     imports: [
         MatCardModule,
+        MatIconModule,
         MatRadioModule,
         MatInputModule,
         MatDialogModule,
@@ -48,6 +51,7 @@ import {MatButtonToggleModule, MatStepperModule} from "@angular/material";
         MatSnackBarModule,
         MatGridListModule,
         MatCheckboxModule,
+        MatExpansionModule,
         MatFormFieldModule,
         MatButtonToggleModule,
         MatProgressSpinnerModule,

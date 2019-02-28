@@ -1,0 +1,56 @@
+.container-title {
+
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mid-space {
+
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.grid-title {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: -3rem;
+  text-align: center;
+  margin-block-end: 0.3rem;
+}
+
+.code-font {
+
+  font-size: 16px;
+}
+
+.spinner-card {
+
+  position: absolute;
+  top: 40%;
+  left: 40%;
+
+  animation: scale-in-top .3s;
+}
+
+.card-loading {
+
+  transition: .4s;
+  opacity: 0.4;
+}
+
+@keyframes scale-in-top {
+
+  from {
+
+    transform: scaleY(0);
+  }
+  to {
+
+    transform: scaleY(1);
+  }
+}
