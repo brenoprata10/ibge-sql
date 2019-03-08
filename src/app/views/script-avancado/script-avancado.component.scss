@@ -10,3 +10,32 @@
     width: 100% !important;
   }
 }
+
+mat-panel-title {
+
+  width: 8rem !important;
+  flex-grow: 0 !important;
+  display: unset !important;
+  margin-right: 0 !important;
+}
+
+mat-panel-description {
+
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.imagem-banco {
+
+  width: 90px;
+}
+
+.btn-container {
+
+  margin-top: 15px;
+}
+
+.btn-anterior {
+
+  margin-right: 10px;
+}

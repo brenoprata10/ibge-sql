@@ -23,6 +23,8 @@ export class ScriptAvancadoComponent implements OnInit {
         icon: '../assets/images/images.png'
     };
 
+    step = -1;
+
     formScript: FormGroup;
 
     listaBancosSuportados: any[];
@@ -38,6 +40,7 @@ export class ScriptAvancadoComponent implements OnInit {
 
         this.inicializarVariaveis();
         this.construirForm();
+        console.log(this.formScript.get('estado'));
     }
 
     private construirForm() {
@@ -71,7 +74,7 @@ export class ScriptAvancadoComponent implements OnInit {
     private construirFormEstado() {
 
         return {
-            estado: new FormControl({
+            estado: new FormGroup({
 
                 nomeTabela: new FormControl('tab_estado', Validators.required),
                 nomeCampoNome: new FormControl('nome', Validators.required),
@@ -89,7 +92,7 @@ export class ScriptAvancadoComponent implements OnInit {
                 nomeCampoNome: new FormControl('nome', Validators.required),
                 nomeTabela: new FormControl('tab_municipio', Validators.required),
                 nomeCampoId: new FormControl('cod_municipio', Validators.required),
-                nomeCampoFKEstado: new FormControl('cod_estado', Validators.required),
+                nomeCampoFKEstado: new FormControl('fk_tab_municipio_tab_estado', Validators.required),
             }, Validators.required)
         };
     }
@@ -97,8 +100,7 @@ export class ScriptAvancadoComponent implements OnInit {
     private construirFormDadosBasicos() {
 
         return {
-            schema: new FormControl('ibge_schema', Validators.required),
-            isGerarScriptRegiao: new FormControl(false),
+            schema: new FormControl('ibge_schema')
         };
     }
 
@@ -117,7 +119,15 @@ export class ScriptAvancadoComponent implements OnInit {
         return this.formScript.get('dadosScript') as FormGroup;
     }
 
-    step = 0;
+    get formEstado(): FormGroup {
+
+        return this.formDadosScript.get('estado') as FormGroup;
+    }
+
+    get formMunicipio(): FormGroup {
+
+        return this.formDadosScript.get('municipio') as FormGroup;
+    }
 
     setStep(index: number) {
         this.step = index;
