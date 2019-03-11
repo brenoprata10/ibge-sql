@@ -13,7 +13,7 @@
 
 mat-panel-title {
 
-  width: 8rem !important;
+  width: 5rem !important;
   flex-grow: 0 !important;
   display: unset !important;
   margin-right: 0 !important;
@@ -38,4 +38,19 @@ mat-panel-description {
 .btn-anterior {
 
   margin-right: 10px;
+}
+
+.spinner-card {
+
+  position: absolute;
+  top: 40%;
+  left: 40%;
+
+  animation: scale-in-top .3s;
+}
+
+.card-loading {
+
+  transition: .4s;
+  opacity: 0.4;
 }

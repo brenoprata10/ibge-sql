@@ -1,4 +1,4 @@
-<mat-card class="card-width">
+<mat-card class="card-width" id="card-avancado">
 
     <mat-card-title>SQL Avançado</mat-card-title>
     <mat-card-subtitle>Scripts de Estados e Municípios com alta customização para cada caso</mat-card-subtitle>
@@ -202,8 +202,18 @@
 
                                         <input matInput
                                                autocomplete="off"
-                                               placeholder="Nome FK para estado"
+                                               placeholder="Nome campo para FK de estado"
                                                formControlName="nomeCampoFKEstado">
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                    <mat-form-field>
+
+                                        <input matInput
+                                               autocomplete="off"
+                                               placeholder="Nome FK para estado"
+                                               formControlName="nomeFKEstado">
                                     </mat-form-field>
                                 </mat-grid-tile>
                             </mat-grid-list>
@@ -250,7 +260,8 @@
 
                     <button mat-stroked-button
                             color="primary"
-                            type="button">
+                            type="button"
+                            (click)="gerarScript()">
                         <i class="material-icons">
                             check
                         </i>
@@ -260,4 +271,7 @@
             </mat-step>
         </mat-horizontal-stepper>
     </mat-card-content>
+
+    <mat-progress-spinner *ngIf="isScriptSendoGerado"
+                          class="spinner-card" [mode]="'indeterminate'"></mat-progress-spinner>
 </mat-card>

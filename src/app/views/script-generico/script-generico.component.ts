@@ -6,6 +6,8 @@ import {MunicipioService} from "../../services/municipio.service";
 import {Estado} from "../../model/estado";
 import {SnackbarService} from "../../services/snackbar.service";
 import {Municipio} from "../../model/municipio";
+import {EstadoScript} from "../../model/estado-script";
+import {MunicipioScript} from "../../model/municipio-script";
 
 @Component({
     selector: 'app-script-generico',
@@ -52,7 +54,11 @@ export class ScriptGenericoComponent implements OnInit {
 
     atualizarScriptExemplo() {
 
-        this.scriptExemplo = this.estadoService.gerarScriptCreateTable(this.valorFormSchema, this.valorFormNomeTabEstado)
+        const estadoScript = new EstadoScript();
+        estadoScript.nomeSchema = this.formScript.get('schema').value;
+        estadoScript.nomeTabela = this.formScript.get('nomeTabEstado').value;
+
+        this.scriptExemplo = this.estadoService.gerarScriptCreateTable(estadoScript);
     }
 
     private construirForm() {
@@ -112,16 +118,26 @@ export class ScriptGenericoComponent implements OnInit {
 
     private gerarScriptEstado(listaEstado: Estado[]): string {
 
-        const scriptGerado = this.estadoService.gerarScriptCreateTable(this.valorFormSchema, this.valorFormNomeTabEstado);
+        const estadoScript = new EstadoScript();
+        estadoScript.nomeSchema = this.formScript.get('schema').value;
+        estadoScript.nomeTabela = this.formScript.get('nomeTabEstado').value;
 
-        return scriptGerado.concat(this.estadoService.gerarScriptInsertTable(listaEstado, this.valorFormSchema, this.valorFormNomeTabEstado));
+        const scriptGerado = this.estadoService.gerarScriptCreateTable(estadoScript);
+
+        return scriptGerado.concat(this.estadoService.gerarScriptInsertTable(listaEstado, estadoScript));
     }
 
     private gerarScriptMunicipio(listaMunicipio: Municipio[]): string {
 
-        const scriptGerado = this.municipioService.gerarScriptCreateTable(this.valorFormSchema, this.valorFormNomeTabMunicipio, this.valorFormNomeTabEstado);
+        const municipioScript  = new MunicipioScript();
+        municipioScript.nomeSchema = this.formScript.get('schema').value;
+        municipioScript.nomeTabela = this.formScript.get('nomeTabMunicipio').value;
 
-        return scriptGerado.concat(this.municipioService.gerarScriptInsertTable(listaMunicipio, this.valorFormSchema, this.valorFormNomeTabMunicipio));
+        const nomeTabelaEstado = this.formScript.get('nomeTabEstado').value;
+
+        const scriptGerado = this.municipioService.gerarScriptCreateTable(municipioScript, nomeTabelaEstado, 'cod_estado');
+
+        return scriptGerado.concat(this.municipioService.gerarScriptInsertTable(listaMunicipio, municipioScript));
     }
 
     private tratarErroAPI() {
