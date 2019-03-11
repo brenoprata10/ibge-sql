@@ -79,7 +79,7 @@
 
                         <mat-expansion-panel-header>
 
-                            <mat-panel-title>Estado</mat-panel-title>
+                            <mat-panel-title [style.color]="formEstado.invalid ? 'red': 'inherit'">Estado</mat-panel-title>
 
                             <mat-panel-description>
 
@@ -153,7 +153,7 @@
                                          (opened)="setStep(2)">
                         <mat-expansion-panel-header>
 
-                            <mat-panel-title>Município</mat-panel-title>
+                            <mat-panel-title [style.color]="formMunicipio.invalid ? 'red': 'inherit'">Município</mat-panel-title>
 
                             <mat-panel-description>
 
