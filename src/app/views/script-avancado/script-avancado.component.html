@@ -1,0 +1,279 @@
+<mat-card class="card-width" id="card-avancado">
+
+    <mat-card-title>SQL Avançado</mat-card-title>
+    <mat-card-subtitle>Scripts de Estados e Municípios com alta customização para cada caso</mat-card-subtitle>
+
+    <mat-card-content class="card-body-container">
+
+        <mat-horizontal-stepper [linear]="true">
+            <mat-step #stepper
+                      [stepControl]="formTipoBanco">
+
+                <form [formGroup]="formTipoBanco">
+
+                    <ng-template matStepLabel>Escolha o Banco</ng-template>
+
+                    <mat-button-toggle-group #group="matButtonToggleGroup"
+                                             (click)="formTipoBanco.get('nome').setValue(group.value)">
+
+                        <mat-button-toggle value="{{bancoSuportado.nome}}"
+                                           *ngFor="let bancoSuportado of listaBancosSuportados">
+
+                            <img src="{{bancoSuportado.icon}}" class="imagem-banco">
+                        </mat-button-toggle>
+
+                    </mat-button-toggle-group>
+
+                    <div class="btn-container">
+                        <button mat-stroked-button
+                                color="primary" matStepperNext>Próximo
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="formDadosScript">
+
+                <ng-template matStepLabel>Dados Script</ng-template>
+
+                <mat-accordion class="example-headers-align">
+                    <mat-expansion-panel hideToggle
+                                         [expanded]="step === 0"
+                                         (opened)="setStep(0)">
+
+                        <mat-expansion-panel-header>
+
+                            <mat-panel-title>Banco</mat-panel-title>
+
+                            <mat-panel-description>
+
+                                Opções disponíveis para o banco selecionado
+                                <mat-icon>data_usage</mat-icon>
+                            </mat-panel-description>
+
+                        </mat-expansion-panel-header>
+
+                        <form [formGroup]="formDadosScript">
+
+                            <mat-form-field>
+
+                                <input matInput
+                                       autocomplete="off"
+                                       placeholder="Schema"
+                                       formControlName="schema">
+                            </mat-form-field>
+
+                            <mat-action-row>
+
+                                <button mat-button
+                                        color="primary"
+                                        (click)="nextStep()">Próximo</button>
+                            </mat-action-row>
+
+                        </form>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel hideToggle
+                                         [expanded]="step === 1"
+                                         (opened)="setStep(1)">
+
+                        <mat-expansion-panel-header>
+
+                            <mat-panel-title [style.color]="formEstado.invalid ? 'red': 'inherit'">Estado</mat-panel-title>
+
+                            <mat-panel-description>
+
+                                Customize o script da tabela de estado
+                                <mat-icon>map</mat-icon>
+                            </mat-panel-description>
+
+                        </mat-expansion-panel-header>
+
+                        <form [formGroup]="formEstado">
+
+                            <mat-grid-list cols="2" [rowHeight]="'4rem'">
+
+                                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                    <mat-form-field>
+
+                                        <input matInput
+                                               autocomplete="off"
+                                               placeholder="Nome Tabela"
+                                               formControlName="nomeTabela">
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                    <mat-form-field>
+
+                                        <input matInput
+                                               autocomplete="off"
+                                               placeholder="Nome coluna 'nome'"
+                                               formControlName="nomeCampoNome">
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                    <mat-form-field>
+
+                                        <input matInput
+                                               autocomplete="off"
+                                               placeholder="Nome coluna 'sigla'"
+                                               formControlName="nomeCampoSigla">
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                    <mat-form-field>
+
+                                        <input matInput
+                                               autocomplete="off"
+                                               placeholder="Nome coluna 'id'"
+                                               formControlName="nomeCampoId">
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+
+                            <mat-action-row>
+
+                                <button mat-button
+                                        color="warn"
+                                        (click)="prevStep()">Anterior</button>
+
+                                <button mat-button
+                                        color="primary"
+                                        (click)="nextStep()">Próximo</button>
+                            </mat-action-row>
+
+                        </form>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel hideToggle
+                                         [expanded]="step === 2"
+                                         (opened)="setStep(2)">
+                        <mat-expansion-panel-header>
+
+                            <mat-panel-title [style.color]="formMunicipio.invalid ? 'red': 'inherit'">Município</mat-panel-title>
+
+                            <mat-panel-description>
+
+                                Customize o script da tabela de município
+                                <mat-icon>location_city</mat-icon>
+                            </mat-panel-description>
+
+                        </mat-expansion-panel-header>
+
+                        <form [formGroup]="formMunicipio">
+
+                            <mat-grid-list cols="2" [rowHeight]="'4rem'">
+
+                                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                    <mat-form-field>
+
+                                        <input matInput
+                                               autocomplete="off"
+                                               placeholder="Nome Tabela"
+                                               formControlName="nomeTabela">
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                    <mat-form-field>
+
+                                        <input matInput
+                                               autocomplete="off"
+                                               placeholder="Nome coluna 'nome'"
+                                               formControlName="nomeCampoNome">
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                    <mat-form-field>
+
+                                        <input matInput
+                                               autocomplete="off"
+                                               placeholder="Nome coluna 'id'"
+                                               formControlName="nomeCampoId">
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                    <mat-form-field>
+
+                                        <input matInput
+                                               autocomplete="off"
+                                               placeholder="Nome campo para FK de estado"
+                                               formControlName="nomeCampoFKEstado">
+                                    </mat-form-field>
+                                </mat-grid-tile>
+
+                                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                                    <mat-form-field>
+
+                                        <input matInput
+                                               autocomplete="off"
+                                               placeholder="Nome FK para estado"
+                                               formControlName="nomeFKEstado">
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+
+                            <mat-action-row>
+
+                                <button mat-button
+                                        color="warn"
+                                        (click)="prevStep()">Anterior</button>
+
+                                <button mat-button
+                                        color="primary"
+                                        (click)="nextStep()">Próximo</button>
+                            </mat-action-row>
+                        </form>
+
+                    </mat-expansion-panel>
+
+                </mat-accordion>
+
+                <div class="btn-container">
+                    <button mat-stroked-button
+                            class="btn-anterior"
+                            color="warn"
+                            matStepperPrevious>Anterior
+                    </button>
+                    <button mat-stroked-button
+                            color="primary"
+                            matStepperNext>Próximo
+                    </button>
+                </div>
+
+            </mat-step>
+
+            <mat-step>
+
+                <ng-template matStepLabel>Baixar Script</ng-template>
+
+                <div class="btn-container">
+                    <button matStepperPrevious
+                            mat-stroked-button
+                            class="btn-anterior"
+                            [disabled]="isScriptSendoGerado"
+                            color="warn">Anterior</button>
+
+                    <button mat-stroked-button
+                            color="primary"
+                            type="button"
+                            [disabled]="isScriptSendoGerado"
+                            (click)="gerarScript()">
+                        <i class="material-icons">
+                            check
+                        </i>
+                        Baixar Script
+                    </button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </mat-card-content>
+
+    <mat-progress-spinner *ngIf="isScriptSendoGerado"
+                          class="spinner-card" [mode]="'indeterminate'"></mat-progress-spinner>
+</mat-card>

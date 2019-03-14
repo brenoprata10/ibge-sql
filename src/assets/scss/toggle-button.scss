@@ -1,0 +1,23 @@
+.mat-button-toggle-checked {
+
+  background-color: transparent;
+  border-bottom: 3px solid #3e4db8;
+
+  animation: btn-toggle-check .3s;
+}
+
+@keyframes btn-toggle-check {
+
+  0% {
+    border-bottom: 0 solid #3e4db8;
+  }
+
+  50% {
+
+    border-bottom: 4px solid #3e4db8;
+  }
+
+  100% {
+    border-bottom: 3px solid #3e4db8;
+  }
+}

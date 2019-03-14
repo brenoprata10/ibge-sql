@@ -1,0 +1,56 @@
+.card-body-container {
+
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  mat-horizontal-stepper {
+
+    width: 100% !important;
+  }
+}
+
+mat-panel-title {
+
+  width: 5rem !important;
+  flex-grow: 0 !important;
+  display: unset !important;
+  margin-right: 0 !important;
+}
+
+mat-panel-description {
+
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.imagem-banco {
+
+  width: 90px;
+}
+
+.btn-container {
+
+  margin-top: 15px;
+}
+
+.btn-anterior {
+
+  margin-right: 10px;
+}
+
+.spinner-card {
+
+  position: absolute;
+  top: 40%;
+  left: 40%;
+
+  animation: scale-in-top .3s;
+}
+
+.card-loading {
+
+  transition: .4s;
+  opacity: 0.4;
+}
