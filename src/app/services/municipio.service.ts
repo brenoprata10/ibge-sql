@@ -22,7 +22,7 @@ export class MunicipioService {
 
         return `\nCREATE TABLE IF NOT EXISTS ${municipioScript.nomeSchema ?
             municipioScript.nomeSchema.concat('.') : ''}${municipioScript.nomeTabela} (
-                ${municipioScript.nomeCampoId} BIGINT PRIMARY KEY,
+                ${municipioScript.nomeCampoId} BIGINT ${municipioScript.autoIncrement ? 'AUTO_INCREMENT' : ''} PRIMARY KEY,
                 ${municipioScript.nomeCampoNome} VARCHAR(100) NOT NULL,
                 ${municipioScript.nomeCampoFKEstado} BIGINT NOT NULL,
                   CONSTRAINT ${municipioScript.nomeFKEstado}
