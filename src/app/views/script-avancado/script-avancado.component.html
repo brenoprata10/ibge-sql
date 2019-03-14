@@ -14,7 +14,7 @@
                     <ng-template matStepLabel>Escolha o Banco</ng-template>
 
                     <mat-button-toggle-group #group="matButtonToggleGroup"
-                                             (click)="formTipoBanco.get('nome').setValue(group.value)">
+                                             (click)="atualizarValoresBanco(group.value)">
 
                         <mat-button-toggle value="{{bancoSuportado.nome}}"
                                            *ngFor="let bancoSuportado of listaBancosSuportados">
@@ -62,6 +62,11 @@
                                        placeholder="Schema"
                                        formControlName="schema">
                             </mat-form-field>
+
+                            <mat-checkbox [formControlName]="'autoIncrement'"
+                                    *ngIf="isBancoIgual(formTipoBanco.controls['nome'].value, MYSQL)">
+                                Auto Increment
+                            </mat-checkbox>
 
                             <mat-action-row>
 

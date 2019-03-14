@@ -16,11 +16,12 @@ import {Municipio} from "../../model/municipio";
 })
 export class ScriptAvancadoComponent implements OnInit {
 
-    private MYSQL = {
+    MYSQL = {
         nome: 'Mysql',
         icon: '../assets/images/logo-mysql-170x115.png'
     };
-    private POSTGRES = {
+
+    POSTGRES = {
         nome: 'Postgres',
         icon: '../assets/images/images.png'
     };
@@ -61,6 +62,17 @@ export class ScriptAvancadoComponent implements OnInit {
         this.gerarScriptEstadoMunicipio();
     }
 
+    isBancoIgual(nomeBanco: string, bancoComparado) {
+
+        return bancoComparado.nome === nomeBanco;
+    }
+
+    atualizarValoresBanco(valor) {
+
+        this.formTipoBanco.get('nome').setValue(valor);
+        this.formDadosScript.get('autoIncrement').reset();
+    }
+
     private gerarScriptEstadoMunicipio() {
 
         this.estadoService.buscarTodos()
@@ -84,7 +96,8 @@ export class ScriptAvancadoComponent implements OnInit {
     private gerarScriptEstado(listaEstado: Estado[]): string {
 
         const estadoScript  = this.formEstado.value;
-        estadoScript.nomeSchema = this.formScript.get('dadosScript').get('schema').value;
+        estadoScript.nomeSchema = this.formDadosScript.get('schema').value;
+        estadoScript.autoIncrement = this.formDadosScript.get('autoIncrement').value;
 
         const scriptGerado = this.estadoService.gerarScriptCreateTable(estadoScript);
 
@@ -94,7 +107,8 @@ export class ScriptAvancadoComponent implements OnInit {
     private gerarScriptMunicipio(listaMunicipio: Municipio[]): string {
 
         const municipioScript  = this.formMunicipio.value;
-        municipioScript.nomeSchema = this.formScript.get('dadosScript').get('schema').value;
+        municipioScript.nomeSchema = this.formDadosScript.get('schema').value;
+        municipioScript.autoIncrement = this.formDadosScript.get('autoIncrement').value;
 
         const nomeTabelaEstado = this.formEstado.get('nomeTabela').value;
         const nomeCampoIdEstado = this.formEstado.get('nomeCampoId').value;
@@ -189,7 +203,8 @@ export class ScriptAvancadoComponent implements OnInit {
     private construirFormDadosBasicos() {
 
         return {
-            schema: new FormControl('ibge_schema')
+            schema: new FormControl('ibge_schema'),
+            autoIncrement: new FormControl(false)
         };
     }
 

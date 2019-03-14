@@ -21,7 +21,7 @@ export class EstadoService {
 
         return `\nCREATE TABLE IF NOT EXISTS ${estadoScript.nomeSchema ?
             estadoScript.nomeSchema.concat('.') : ''}${estadoScript.nomeTabela} (
-                ${estadoScript.nomeCampoId} BIGINT PRIMARY KEY,
+                ${estadoScript.nomeCampoId} BIGINT ${estadoScript.autoIncrement ? 'AUTO_INCREMENT' : ''} PRIMARY KEY,
                 ${estadoScript.nomeCampoSigla} VARCHAR(2) NOT NULL,
                 ${estadoScript.nomeCampoNome} VARCHAR(100) NOT NULL
             );\n`;
