@@ -256,11 +256,13 @@
                     <button matStepperPrevious
                             mat-stroked-button
                             class="btn-anterior"
+                            [disabled]="isScriptSendoGerado"
                             color="warn">Anterior</button>
 
                     <button mat-stroked-button
                             color="primary"
                             type="button"
+                            [disabled]="isScriptSendoGerado"
                             (click)="gerarScript()">
                         <i class="material-icons">
                             check
